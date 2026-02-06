@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Brand</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen flex items-center justify-center bg-slate-900" style="background-image: url('roblox.jpeg'); background-size: cover;">
+    <div class="absolute inset-0 bg-blue-900/60 backdrop-blur-sm"></div>
+    <div class="relative z-10 w-[360px] bg-white/10 backdrop-blur-md rounded-2xl shadow-2xl p-8 text-white border border-white/20">
+        <h2 class="text-2xl font-bold text-center mb-6 tracking-widest uppercase">Welcome</h2>
+        <form onsubmit="return handleLogin(event)" class="space-y-4">
+            <input type="text" id="username" placeholder="Username" class="w-full px-4 py-2 rounded-full bg-white/20 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-blue-400" required>
+            <input type="password" id="password" placeholder="Password" class="w-full px-4 py-2 rounded-full bg-white/20 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-blue-400" required>
+            <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-full font-semibold transition">LOGIN</button>
+        </form>
+    </div>
+    <script>
+        function handleLogin(e) {
+            e.preventDefault();
+            const u = document.getElementById("username").value;
+            const p = document.getElementById("password").value;
+            if (u === "admin" && p === "admin123") {
+                sessionStorage.setItem("isLoggedIn", "true");
+                sessionStorage.setItem("username", u);
+                window.location.href = "home.html";
+            } else { alert("Login Gagal! Gunakan admin / admin123"); }
+        }
+    </script>
+</body>
+</html>
