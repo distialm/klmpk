@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil - Brand</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+    <nav class="bg-[#0047a5] text-white p-4">
+        <div class="max-w-xl mx-auto flex items-center gap-4">
+            <a href="home.html" class="hover:bg-blue-700 p-2 rounded-full transition"><i data-lucide="arrow-left"></i></a>
+            <h1 class="text-xl font-bold">Profil Pengguna</h1>
+        </div>
+    </nav>
+
+    <main class="max-w-xl mx-auto mt-10 px-4">
+        <div class="bg-white rounded-3xl shadow-xl p-8 flex flex-col items-center">
+            <div class="relative group">
+                <img id="profile-display" src="https://ui-avatars.com/api/?name=User&background=random" class="w-32 h-32 rounded-full border-4 border-blue-500 object-cover shadow-lg">
+                <label for="upload-photo" class="absolute bottom-0 right-0 bg-blue-600 p-2 rounded-full cursor-pointer hover:bg-blue-700 border-2 border-white">
+                    <i data-lucide="camera" class="w-5 h-5 text-white"></i>
+                    <input type="file" id="upload-photo" class="hidden" accept="image/*">
+                </label>
+            </div>
+            <h2 id="user-display" class="text-2xl font-black mt-6 text-gray-800 uppercase">USERNAME</h2>
+            <div class="flex items-center gap-2 text-blue-600 font-medium text-sm bg-blue-50 px-3 py-1 rounded-full mt-2">
+                <i data-lucide="mail" class="w-4 h-4"></i><span id="email-display">admin@brand.com</span>
+            </div>
+            <button onclick="logout()" class="w-full mt-10 bg-red-100 text-red-600 py-4 rounded-2xl font-bold flex items-center justify-center gap-3 hover:bg-red-200 transition">
+                <i data-lucide="log-out"></i> LOGOUT
+            </button>
+        </div>
+    </main>
+
+    <script>
+        lucide.createIcons();
+        window.onload = function() {
+            const user = sessionStorage.getItem("username");
+            if (!user) { window.location.href = "login.html"; return; }
+            document.getElementById("user-display").innerText = user;
+            document.getElementById("email-display").innerText = user + "@brand.com";
+            const savedImg = localStorage.getItem("profileImage");
+            if(savedImg) document.getElementById("profile-display").src = savedImg;
+        }
+        document.getElementById('upload-photo').addEventListener('change', function() {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('profile-display').src = e.target.result;
+                localStorage.setItem("profileImage", e.target.result);
+            }
+            reader.readAsDataURL(this.files[0]);
+        });
+        function logout() { sessionStorage.clear(); window.location.href = "index.html"; }
+    </script>
+</body>
+</html>
